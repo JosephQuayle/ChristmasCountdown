@@ -1,5 +1,5 @@
 //date we are counting to
-const christmasDay = new Date("December 25, 2024 00:00:00").getTime();
+const christmasDay = new Date("December 25, 2025 00:00:00").getTime();
 
 //update every second
 let x = setInterval(function(){
