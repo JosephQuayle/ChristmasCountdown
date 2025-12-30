@@ -1,35 +1,29 @@
-//date we are counting to
-const christmasDay = new Date("December 25, 2025 00:00:00").getTime();
+let x = setInterval(function() {
 
-//update every second
-let x = setInterval(function(){
+    let now = new Date();
+    let currentYear = now.getFullYear();
+    
+    // 1. Define Christmas for the current year
+    let christmasDay = new Date("December 25, " + currentYear + " 00:00:00").getTime();
 
-    //get todays date and time
-    let now = new Date().getTime();
+    // 2. If today is past Christmas 2025, set target to Christmas 2026
+    if (now.getTime() > christmasDay) {
+        christmasDay = new Date("December 25, " + (currentYear + 1) + " 00:00:00").getTime();
+    }
 
-    //Find distance between christmas and now
-    let distance = christmasDay - now;
+    let distance = christmasDay - now.getTime();
 
-    //Time calculations for days, hours, mins, secs
+    // Time calculations
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    //display result in the correct element
-    document.getElementById("days").innerHTML = days + ":";
-    document.getElementById("hours").innerHTML = hours + ":";
-    document.getElementById("mins").innerHTML = minutes + ":";
-    document.getElementById("seconds").innerHTML = seconds;
+    // 3. Optimized "Leading Zero" display logic
+    // String().padStart(2, '0') is the modern way to ensure 2 digits
+    document.getElementById("days").innerHTML = String(days).padStart(2, '0') + ":";
+    document.getElementById("hours").innerHTML = String(hours).padStart(2, '0') + ":";
+    document.getElementById("mins").innerHTML = String(minutes).padStart(2, '0') + ":";
+    document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
 
-    //When unit becomes less than 10, a 0 is added infront.
-    if (days < 10) {
-        document.getElementById("days").innerHTML = "0" + days + ":";
-    }else if (hours < 10) {
-        document.getElementById("hours").innerHTML = "0" + hours + ":";
-    }else if (minutes  < 10) {
-        document.getElementById("mins").innerHTML = "0" + minutes + ":";
-    }else if (seconds < 10) {
-        document.getElementById("seconds").innerHTML = "0" + seconds;
-    }
-})
+}, 1000);
